@@ -129,7 +129,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.db_course_application/com.controllers.Main
+                                com.example.db_course_application/com.app.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
