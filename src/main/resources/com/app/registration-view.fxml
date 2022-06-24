@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="601.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.RegistrationController">
+<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="601.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controllers.RegistrationController">
     <children>
         <AnchorPane layoutX="-1.0" prefHeight="55.0" prefWidth="602.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="345.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button fx:id="signGuestButton" layoutX="514.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="58.0" text="Guest" AnchorPane.bottomAnchor="14.600000000000001" />
+                <Button fx:id="signGuestButton" layoutX="525.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="58.0" text="Guest" AnchorPane.bottomAnchor="14.600000000000001" />
                 <Label layoutX="28.0" layoutY="12.0" prefHeight="18.0" prefWidth="110.0" text="neekrasov" textFill="WHITE" AnchorPane.bottomAnchor="11.8" AnchorPane.leftAnchor="27.99999999999997" AnchorPane.rightAnchor="463.6" AnchorPane.topAnchor="12.0">
                     <font>
                         <Font size="21.0" />
