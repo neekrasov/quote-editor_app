@@ -53,10 +53,10 @@ public class AuthController {
         });
 
         signUpButton.setOnAction(actionEvent -> {
-            openNewWindow("/com/app/registration-view.fxml", signUpButton);
+            openNewWindow("/com/app/registration-view.fxml", signUpButton, true);
         });
         signGuestButton.setOnAction(actionEvent -> {
-            openNewWindow("/com/app/edit_menu-view.fxml", signGuestButton);
+            openNewWindow("/com/app/edit_menu-view.fxml", signGuestButton, true);
         });
 
     }
@@ -69,7 +69,7 @@ public class AuthController {
                 counter++;
             }
             if (counter >= 1) {
-                openNewWindow("/com/app/edit_menu-view.fxml", signInButton);
+                openNewWindow("/com/app/edit_menu-view.fxml", signInButton, true);
             } else {
                 loginErrorAnimation();
             }
@@ -78,8 +78,14 @@ public class AuthController {
         }
     }
 
-    public static void openNewWindow(String window, Button button) {
-        button.getScene().getWindow().hide();
+    public static void openNewWindow(String window, Button button, boolean hide) {
+
+        if (hide){
+            button.getScene().getWindow().hide();
+        }else{
+            button.getScene().getWindow();
+        }
+
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(AuthController.class.getResource(window));
@@ -91,11 +97,6 @@ public class AuthController {
         }
         Parent root = loader.getRoot();
         Stage stage = new Stage();
-
-        stage.setMaxHeight(438);
-        stage.setMaxWidth(610);
-        stage.setMinHeight(438);
-        stage.setMinWidth(610);
 
         stage.setScene(new Scene(root));
         stage.show();

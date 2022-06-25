@@ -46,12 +46,12 @@ public class RegistrationController {
         });
 
         backButton.setOnAction(actionEvent -> {
-            openNewWindow("/com/app/authorization-view.fxml", backButton);
+            openNewWindow("/com/app/authorization-view.fxml", backButton,true);
         });
 
 
         signGuestButton.setOnAction(actionEvent -> {
-            openNewWindow("/com/app/edit_menu-view.fxml", signGuestButton);
+            openNewWindow("/com/app/edit_menu-view.fxml", signGuestButton, true);
         });
     }
 
