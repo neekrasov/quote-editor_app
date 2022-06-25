@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Quote {
-    private int id;
+    private static int id;
     private String quote;
     private String lecturer;
     private String subject;
@@ -22,12 +22,12 @@ public class Quote {
         this.date = date;
     }
 
-    public static Quote create(String quotes, String lecturer, String subject, String date) {
-        String insert = "INSERT INTO lecturer_quotes VALUES (?, ?, ?, ?)";
+    public static void create(String quote, String lecturer, String subject, String date) {
+        String insert = "INSERT INTO lecturer_quotes (quote, lecturer, subject, date) VALUES (?, ?, ?, ?)";
 
         try {
             PreparedStatement prSt = DatabaseHandler.getDbConnection().prepareStatement(insert);
-            prSt.setString(1, quotes);
+            prSt.setString(1, quote);
             prSt.setString(2, lecturer);
             prSt.setString(3, subject);
             prSt.setString(4, date);
@@ -35,7 +35,6 @@ public class Quote {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return get(quotes, lecturer);
     }
 
     public static Quote get(String quote, String lecturer) {
@@ -121,6 +120,35 @@ public class Quote {
         }
 
         return arr;
+    }
+
+    public void delete() {
+        String delete = "DELETE FROM lecturer_quotes WHERE id = ?";
+        try {
+            PreparedStatement prSt = DatabaseHandler.getDbConnection().prepareStatement(delete);
+            prSt.setString(1, String.valueOf(id));
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void update(String quote, String lecturer, String subject, String date){
+        String insert = "UPDATE lecturer_quotes " +
+                "SET quote = ?, lecturer = ?, subject = ?, date = ? " +
+                "WHERE id = ?";
+
+        try {
+            PreparedStatement prSt = DatabaseHandler.getDbConnection().prepareStatement(insert);
+            prSt.setString(1, quote);
+            prSt.setString(2, lecturer);
+            prSt.setString(3, subject);
+            prSt.setString(4, date);
+            prSt.setInt(5, id);
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getId() {
