@@ -11,8 +11,11 @@
    <children>
       <AnchorPane layoutX="-1.0" prefHeight="55.0" prefWidth="602.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="345.0" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="signUpButton" layoutX="510.0" layoutY="15.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="71.0" text="Register" />
-            <Button fx:id="signGuestButton" layoutX="444.0" layoutY="15.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="58.0" text="Guest" />
+            <Button fx:id="signUpButton" layoutX="510.0" layoutY="15.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="71.0" style="-fx-background-color: #000000; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #FFFFFF;" text="Register" textFill="WHITE" />
+            <Button fx:id="signGuestButton" layoutX="444.0" layoutY="15.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="58.0" style="-fx-background-color: #000000; -fx-background-radius: 100; -fx-border-color: #FFFFFF; -fx-border-radius: 100;" text="Guest" textFill="WHITE">
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font></Button>
             <Label layoutX="28.0" layoutY="12.0" prefHeight="18.0" prefWidth="110.0" text="neekrasov" textFill="WHITE" AnchorPane.bottomAnchor="11.8" AnchorPane.leftAnchor="27.99999999999997" AnchorPane.rightAnchor="463.6" AnchorPane.topAnchor="12.0">
                <font>
                   <Font size="21.0" />
@@ -28,7 +31,7 @@
             <Font size="23.0" />
          </font>
       </Label>
-      <Button fx:id="signInButton" layoutX="239.0" layoutY="252.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" text="Sign In" />
+      <Button fx:id="signInButton" layoutX="239.0" layoutY="252.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #000000; -fx-border-radius: 100; -fx-border-color: #000000; -fx-background-radius: 100;" text="Sign In" textFill="WHITE" />
       <AnchorPane layoutY="360.0" prefHeight="40.0" prefWidth="601.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-0.6000000000000227" AnchorPane.topAnchor="360.0" />
    </children>
 </AnchorPane>
