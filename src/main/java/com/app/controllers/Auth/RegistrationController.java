@@ -1,7 +1,6 @@
-package com.app.controllers;
+package com.app.controllers.Auth;
 
 import com.app.animations.Shake;
-import com.app.database.DatabaseHandler;
 import com.app.database.models.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +10,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.app.controllers.AuthController.openNewWindow;
+import static com.app.controllers.Auth.AuthController.openNewWindow;
 
 public class RegistrationController {
 
@@ -43,6 +42,7 @@ public class RegistrationController {
     void initialize() {
         signUpButton.setOnAction(actionEvent -> {
             signUp();
+            openNewWindow("/com/app/authorization-view.fxml", signUpButton,true);
         });
 
         backButton.setOnAction(actionEvent -> {
@@ -56,14 +56,12 @@ public class RegistrationController {
     }
 
     private void signUp() {
-        DatabaseHandler dbHandler = new DatabaseHandler();
         String login = loginField.getText().trim();
         String password1 = passwordField1.getText().trim();
         String password2 = passwordField2.getText().trim();
 
         if (!login.equals("") && !password1.equals("") && !password2.equals("") && password1.equals(password2)) {
             User.register(login, password2);
-//            openNewWindow("/com/app/authorization-view.fxml", backButton);
         } else {
             registerErrorAnimation();
         }

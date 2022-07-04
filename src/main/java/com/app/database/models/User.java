@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class User {
+    private int id;
     private String login;
     private String password;
 
@@ -18,6 +19,12 @@ public class User {
 
     public User() {
 
+    }
+
+    public User(int id, String login, String password) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
     }
 
     public String getLogin() {
@@ -32,11 +39,15 @@ public class User {
         return password;
     }
 
-    public void setHashed_password(String password) {
+    public int getId() {
+        return id;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public static ResultSet get(String login, String password) {
+    public static User get(String login, String password) {
         ResultSet resSet = null;
 
         String select = "SELECT * FROM user WHERE login = ? and password = ?";
@@ -49,8 +60,38 @@ public class User {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        try {
+            assert resSet != null;
+            if (resSet.next())
+            {
+                return getFromResultSet(resSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static User get(String login) {
+        ResultSet resSet = null;
 
-        return resSet;
+        String select = "SELECT * FROM user WHERE login = ?";
+
+        try {
+            PreparedStatement prSt = DatabaseHandler.getDbConnection().prepareStatement(select);
+            prSt.setString(1, login);
+            resSet = prSt.executeQuery();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert resSet != null;
+            if (resSet.next()) {
+                return getFromResultSet(resSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void register(String login, String password) {
@@ -64,5 +105,44 @@ public class User {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public static void updateLogin(int id, String newLogin) {
+        String insert = "UPDATE user SET login = ? WHERE id = ?";
+
+        try {
+            PreparedStatement prSt = DatabaseHandler.getDbConnection().prepareStatement(insert);
+            prSt.setString(1, newLogin);
+            prSt.setString(2, String.valueOf(id));
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updatePassword(int id, String newPassword) {
+        String insert = "UPDATE user SET password = ? WHERE id = ?";
+
+        try {
+            PreparedStatement prSt = DatabaseHandler.getDbConnection().prepareStatement(insert);
+            prSt.setString(2, String.valueOf(id));
+            prSt.setString(1, HashPasswordMD5.hash_password(newPassword));
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static User getFromResultSet(ResultSet resSet) {
+        try {
+            int id = resSet.getInt("id");
+            String login = resSet.getString("login");
+            String password = resSet.getString("password");
+            return new User(id, login, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

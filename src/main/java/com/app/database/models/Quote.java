@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Quote {
-    private static int id;
+    private int id;
     private String quote;
     private String lecturer;
     private String subject;
@@ -22,7 +22,7 @@ public class Quote {
         this.date = date;
     }
 
-    public static void create(String quote, String lecturer, String subject, String date) {
+    public static Quote create(String quote, String lecturer, String subject, String date) {
         String insert = "INSERT INTO lecturer_quotes (quote, lecturer, subject, date) VALUES (?, ?, ?, ?)";
 
         try {
@@ -35,6 +35,7 @@ public class Quote {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return get(quote, lecturer);
     }
 
     public static Quote get(String quote, String lecturer) {
@@ -84,7 +85,7 @@ public class Quote {
         return null;
     }
 
-    public static Quote getFromResultSet(ResultSet resSet) {
+    private static Quote getFromResultSet(ResultSet resSet) {
         try {
             int id = resSet.getInt("id");
             String quote = resSet.getString("quote");
@@ -133,7 +134,7 @@ public class Quote {
         }
     }
 
-    public static void update(String quote, String lecturer, String subject, String date){
+    public void update(String quote, String lecturer, String subject, String date) {
         String insert = "UPDATE lecturer_quotes " +
                 "SET quote = ?, lecturer = ?, subject = ?, date = ? " +
                 "WHERE id = ?";
@@ -146,6 +147,7 @@ public class Quote {
             prSt.setString(4, date);
             prSt.setInt(5, id);
             prSt.executeUpdate();
+//            System.out.println(id);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -170,4 +172,26 @@ public class Quote {
     public String getDate() {
         return date;
     }
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
+    }
+
+    public void setLecturer(String lecturer) {
+        this.lecturer = lecturer;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
 }

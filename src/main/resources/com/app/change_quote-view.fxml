@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="272.0" minWidth="300.0" prefHeight="272.0" prefWidth="372.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controllers.ChangeQuoteController">
+<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="272.0" minWidth="300.0" prefHeight="272.0" prefWidth="372.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controllers.EditQuotes.ChangeQuoteController">
     <children>
         <AnchorPane layoutX="-1.0" prefHeight="61.0" prefWidth="373.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="0.0">
             <children>

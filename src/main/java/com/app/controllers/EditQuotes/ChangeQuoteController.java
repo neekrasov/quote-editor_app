@@ -1,9 +1,10 @@
-package com.app.controllers;
+package com.app.controllers.EditQuotes;
 
 import com.app.database.models.Quote;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -11,7 +12,8 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ChangeQuoteController {
-    EditMenuController parent;
+    Quote quoteModel;
+    TableView<Quote> dataTable;
 
     @FXML
     private ResourceBundle resources;
@@ -50,19 +52,29 @@ public class ChangeQuoteController {
             String subject = subjectField.getText();
             String date = String.valueOf(dateField.getValue());
 
-            Quote.update(quote, lecturer, subject,date);
-            exitButton.getScene().getWindow().hide();
-            parent.loadTable();
+            quoteModel.setQuote(quote);
+            quoteModel.setLecturer(lecturer);
+            quoteModel.setSubject(subject);
+            quoteModel.setDate(date);
+
+            changeButton.getScene().getWindow().hide();
+
+            quoteModel.update(quote, lecturer, subject, date);
+            dataTable.refresh();
         }));
     }
 
-    public void setParent(EditMenuController controller, Quote currentQuote){
-        this.parent = controller;
+    public void setParentTable(TableView<Quote> dataTable){
+        this.dataTable = dataTable;
+    }
 
-        quoteField.setText(currentQuote.getQuote());
-        subjectField.setText(currentQuote.getSubject());
-        dateField.setValue(LocalDate.parse(currentQuote.getDate()));
-        lecturerNameField.setText(currentQuote.getLecturer());
+    public void setQuote(Quote quoteModel){
+        this.quoteModel = quoteModel;
+
+        quoteField.setText(quoteModel.getQuote());
+        lecturerNameField.setText(quoteModel.getLecturer());
+        subjectField.setText(quoteModel.getSubject());
+        dateField.setValue(LocalDate.parse(quoteModel.getDate()));
     }
 
 }

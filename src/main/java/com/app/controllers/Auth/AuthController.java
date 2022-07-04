@@ -1,6 +1,7 @@
-package com.app.controllers;
+package com.app.controllers.Auth;
 
 import com.app.animations.Shake;
+import com.app.controllers.EditQuotes.EditMenuController;
 import com.app.database.models.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,11 +14,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AuthController {
+
+    EditMenuController editMenuController;
 
     @FXML
     private ResourceBundle resources;
@@ -56,20 +58,18 @@ public class AuthController {
             openNewWindow("/com/app/registration-view.fxml", signUpButton, true);
         });
         signGuestButton.setOnAction(actionEvent -> {
-            openNewWindow("/com/app/edit_menu-view.fxml", signGuestButton, true);
+            openNewWindow("/com/app/guest_menu-view.fxml", signGuestButton, true);
         });
 
     }
 
     private void loginUser(String login, String password) throws SQLException {
         if (!login.equals("") && !password.equals("")) {
-            ResultSet user = User.get(login, password);
-            int counter = 0;
-            while (user.next()) {
-                counter++;
-            }
-            if (counter >= 1) {
-                openNewWindow("/com/app/edit_menu-view.fxml", signInButton, true);
+            User user = User.get(login, password);
+            if (user != null){
+                FXMLLoader loader = openNewWindow("/com/app/edit_menu-view.fxml", signInButton, true);
+                editMenuController = loader.getController();
+                editMenuController.setUser(user);
             } else {
                 loginErrorAnimation();
             }
@@ -78,7 +78,7 @@ public class AuthController {
         }
     }
 
-    public static void openNewWindow(String window, Button button, boolean hide) {
+    public static FXMLLoader openNewWindow(String window, Button button, boolean hide) {
 
         if (hide){
             button.getScene().getWindow().hide();
@@ -100,6 +100,8 @@ public class AuthController {
 
         stage.setScene(new Scene(root));
         stage.show();
+
+        return loader;
     }
 
     private void loginErrorAnimation() {
@@ -108,5 +110,6 @@ public class AuthController {
         userLoginAnimation.play();
         userPasswordAnimation.play();
     }
+
 
 }
