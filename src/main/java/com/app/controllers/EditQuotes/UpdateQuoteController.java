@@ -11,7 +11,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class ChangeQuoteController {
+public class UpdateQuoteController {
     Quote quoteModel;
     TableView<Quote> dataTable;
 
