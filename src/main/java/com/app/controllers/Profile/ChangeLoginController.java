@@ -8,9 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static com.app.controllers.Auth.AuthController.openNewWindow;
+import static com.app.Configs.openNewWindow;
 
 public class ChangeLoginController {
 
@@ -37,15 +38,19 @@ public class ChangeLoginController {
         changeButton.setOnAction(actionEvent -> {
             String login = newLoginField.getText();
             User anotherUser = User.get(login);
-            if (anotherUser!=null || newLoginField.getText().equals("")) {
+            if (anotherUser != null || newLoginField.getText().equals("")) {
                 Shake button = new Shake(newLoginField);
                 button.play();
                 return;
             }
-            User.updateLogin(user.getId(), login);
+            User.updateLogin(user.getId(), login); // Отловить ошибку
 
             user.setLogin(login);
-            userProfileController.setUser(user);
+            try {
+                userProfileController.setUser(user);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
             changeButton.getScene().getWindow().hide();
         });
@@ -59,11 +64,12 @@ public class ChangeLoginController {
         this.user = user;
         newLoginField.setText(user.getLogin());
     }
+
     public void setParent(UserProfileController controller) {
         this.userProfileController = controller;
     }
 
-    public void goBack(){
+    public void goBack() throws SQLException {
         FXMLLoader loader = openNewWindow("com/app/user_profile-view.fxml", exitButton, true);
         UserProfileController userProfileController = loader.getController();
         userProfileController.setUser(user);

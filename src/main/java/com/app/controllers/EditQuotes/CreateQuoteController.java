@@ -1,6 +1,7 @@
 package com.app.controllers.EditQuotes;
 
 import com.app.database.models.Quote;
+import com.app.database.models.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -11,9 +12,10 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class AddQuoteController {
-    EditMenuController parent;
+public class CreateQuoteController {
     TableView<Quote> dataTable;
+
+    User user;
 
     @FXML
     private ResourceBundle resources;
@@ -51,7 +53,8 @@ public class AddQuoteController {
             Quote newQuote = Quote.create(quoteField.getText(),
                     lecturerNameField.getText(),
                     subjectField.getText(),
-                    String.valueOf(dateField.getValue()));
+                    String.valueOf(dateField.getValue()),
+                    user.getId());
             exitButton.getScene().getWindow().hide();
             dataTable.getItems().add(newQuote);
             dataTable.refresh();
@@ -60,4 +63,9 @@ public class AddQuoteController {
     public void setParentTable(TableView<Quote> dataTable) {
         this.dataTable = dataTable;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

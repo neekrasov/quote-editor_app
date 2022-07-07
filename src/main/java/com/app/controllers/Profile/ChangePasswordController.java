@@ -55,6 +55,10 @@ public class ChangePasswordController {
                 new Shake(newPasswordField2).play();
             }
         });
+
+        exitButton.setOnAction(actionEvent -> {
+            exitButton.getScene().getWindow().hide();
+        });
     }
 
     public void setUser(User user) {

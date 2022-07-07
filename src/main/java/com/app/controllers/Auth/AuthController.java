@@ -17,10 +17,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static com.app.Configs.openNewWindow;
+
 public class AuthController {
-
-    EditMenuController editMenuController;
-
     @FXML
     private ResourceBundle resources;
 
@@ -66,49 +65,32 @@ public class AuthController {
     private void loginUser(String login, String password) throws SQLException {
         if (!login.equals("") && !password.equals("")) {
             User user = User.get(login, password);
-            if (user != null){
-                FXMLLoader loader = openNewWindow("/com/app/edit_menu-view.fxml", signInButton, true);
-                editMenuController = loader.getController();
+            if (user != null) {
+                signInButton.getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(AuthController.class.getResource("/com/app/edit_menu-view.fxml"));
+
+                try {
+                    loader.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Parent root = loader.getRoot();
+                Stage stage = new Stage();
+
+                EditMenuController editMenuController = loader.getController();
                 editMenuController.setUser(user);
-            } else {
-                loginErrorAnimation();
-            }
-        } else {
-            loginErrorAnimation();
-        }
-    }
 
-    public static FXMLLoader openNewWindow(String window, Button button, boolean hide) {
+                stage.setScene(new Scene(root));
+                stage.show();
+            } else loginErrorAnimation();
+        } else loginErrorAnimation();
 
-        if (hide){
-            button.getScene().getWindow().hide();
-        }else{
-            button.getScene().getWindow();
-        }
-
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(AuthController.class.getResource(window));
-
-        try {
-            loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-
-        stage.setScene(new Scene(root));
-        stage.show();
-
-        return loader;
     }
 
     private void loginErrorAnimation() {
-        Shake userLoginAnimation = new Shake(loginField);
-        Shake userPasswordAnimation = new Shake(passwordField);
-        userLoginAnimation.play();
-        userPasswordAnimation.play();
+        new Shake(loginField).play();
+        new Shake(passwordField).play();
     }
 
 
