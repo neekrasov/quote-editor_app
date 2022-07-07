@@ -49,10 +49,12 @@ public class UserSettingsController {
 
     @FXML
     private CheckBox staffCheckBox;
+    @FXML
+    private CheckBox verifierCheckBox;
 
 
     @FXML
-    void initialize() throws SQLException {
+    void initialize() {
 
         exitButton.setOnAction(actionEvent -> {
             exitButton.getScene().getWindow().hide();
@@ -65,6 +67,7 @@ public class UserSettingsController {
             int fourthCheckBoxValue = fourthCheckBox.isSelected() ? 1 : 0;
             int fifthCheckBoxValue = fifthCheckBox.isSelected() ? 1 : 0;
             boolean staffCheckBoxValue = staffCheckBox.isSelected();
+            boolean verifierCheckBoxValue = verifierCheckBox.isSelected();
 
             ArrayList<Integer> newFunctions = new ArrayList<>();
             ArrayList<Integer> userFunctions = null;
@@ -133,6 +136,9 @@ public class UserSettingsController {
             if (selectedUser.isStaff() != staffCheckBoxValue) {
                 selectedUser.setStaff(staffCheckBoxValue);
             }
+            if (selectedUser.isVerifier() != verifierCheckBoxValue) {
+                selectedUser.setVerifier(verifierCheckBoxValue);
+            }
 
             selectedUser.setFunctions(newFunctions);
 
@@ -147,6 +153,9 @@ public class UserSettingsController {
             staffCheckBox.setSelected(true);
         } else {
             isAdminLabel.setVisible(false);
+        }
+        if (selectedUser.isVerifier()){
+            verifierCheckBox.setSelected(true);
         }
         ArrayList<Integer> functions = selectedUser.getFunctionsFromDB();
         if (functions != null) {

@@ -48,7 +48,7 @@ public class AdminSettingsController {
 
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(AuthController.class.getResource("/com/app/user_settings-view.fxml"));
+            loader.setLocation(getClass().getResource("/com/app/user_settings-view.fxml"));
 
             try {
                 loader.load();
@@ -74,7 +74,7 @@ public class AdminSettingsController {
 
     }
 
-    static void loadTable(TableColumn<User, String> user, TableView<User> dataTable) {
+    private void loadTable(TableColumn<User, String> user, TableView<User> dataTable) {
         user.setCellValueFactory(new PropertyValueFactory<>("login"));
         ObservableList<User> data = FXCollections.observableArrayList(User.all());
         dataTable.setItems(data);

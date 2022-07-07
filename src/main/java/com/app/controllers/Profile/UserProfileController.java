@@ -43,6 +43,8 @@ public class UserProfileController {
     private Label numberLabel;
     @FXML
     private Button adminSettingsButton;
+    @FXML
+    private Button myGroupButton;
 
     @FXML
     void initialize() {
@@ -51,7 +53,7 @@ public class UserProfileController {
             backButton.getScene().getWindow().hide();
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(AuthController.class.getResource("/com/app/edit_menu-view.fxml"));
+            loader.setLocation(getClass().getResource("/com/app/edit_menu-view.fxml"));
 
             try {
                 loader.load();
@@ -88,6 +90,24 @@ public class UserProfileController {
         adminSettingsButton.setOnAction(actionEvent -> {
             openNewWindow("/com/app/admin_settings-view.fxml", adminSettingsButton, false);
         });
+
+        myGroupButton.setOnAction(actionEvent -> {
+            changePassButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/app/verifier_group-view.fxml"));
+
+            try {
+                loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            VerifierGroupController verifierGroupController = loader.getController();
+            verifierGroupController.setUser(user);
+            stage.show();
+        });
     }
 
     public void setUser(User user) throws SQLException {
@@ -98,6 +118,9 @@ public class UserProfileController {
 
         if (!user.isStaff()) {
             adminSettingsButton.setVisible(false);
+        }
+        if (!user.isVerifier()){
+            myGroupButton.setVisible(false);
         }
     }
 

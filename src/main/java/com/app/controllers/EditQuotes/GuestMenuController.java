@@ -1,5 +1,6 @@
 package com.app.controllers.EditQuotes;
 
+import com.app.animations.Shake;
 import com.app.database.models.Quote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,6 +52,10 @@ public class GuestMenuController {
         retrieveButton.setOnAction(actionEvent -> {
             Quote current = dataTable.getSelectionModel().getSelectedItem();
             FXMLLoader loader = openNewWindow("/com/app/retrieve_quote-view.fxml", retrieveButton, false);
+            if(current==null){
+                new Shake(retrieveButton).play();
+                return;
+            }
             RetrieveQuoteController retrieveQuoteController = loader.getController();
             retrieveQuoteController.setQuote(current);
         });

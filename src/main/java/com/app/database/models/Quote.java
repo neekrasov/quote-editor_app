@@ -182,6 +182,10 @@ public class Quote {
         return author;
     }
 
+    public User getUserAuthor(){
+        return User.get(getAuthor());
+    }
+
 
     public void setId(int id) {
         this.id = id;
