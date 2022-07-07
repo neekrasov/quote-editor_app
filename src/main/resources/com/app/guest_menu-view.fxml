@@ -26,6 +26,11 @@
                         <Font name="Roboto" size="17.0" />
                     </font>
                 </Button>
+            <Button fx:id="retrieveButton" layoutX="596.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="96.0" style="-fx-background-color: #000000; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #FFFFFF;" text="Retrieve" textFill="WHITE">
+               <font>
+                  <Font name="Roboto" size="17.0" />
+               </font>
+            </Button>
             </children></AnchorPane>
         <TableView fx:id="dataTable" layoutX="-1.0" layoutY="71.0" prefHeight="367.0" prefWidth="723.0">
             <columns>

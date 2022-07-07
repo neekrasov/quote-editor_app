@@ -10,7 +10,7 @@
         <AnchorPane layoutX="-1.0" prefHeight="66.0" prefWidth="445.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="177.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <AnchorPane layoutX="-83.0" layoutY="2.0" prefHeight="55.0" prefWidth="608.0" AnchorPane.bottomAnchor="343.0" AnchorPane.leftAnchor="-83.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="2.0" />
-                <Label fx:id="labelHello" layoutX="143.0" layoutY="6.0" prefHeight="35.0" prefWidth="207.0" text="Label" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="labelHello" contentDisplay="CENTER" layoutX="173.0" layoutY="6.0" prefHeight="35.0" prefWidth="207.0" text="Label" textFill="WHITE">
                     <font>
                         <Font name="Arial" size="24.0" />
                     </font>
@@ -24,16 +24,31 @@
                         <Font name="Roboto" size="15.0" />
                     </font>
                 </Button>
+            <Button fx:id="adminSettingsButton" layoutX="290.0" layoutY="9.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #000000; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #FFFFFF;" text="Admin settings" textFill="WHITE">
+               <font>
+                  <Font name="Roboto" size="15.0" />
+               </font>
+            </Button>
             </children></AnchorPane>
-      <Button fx:id="changeLoginButton" layoutX="72.0" layoutY="91.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="133.0" style="-fx-background-color: #000000; -fx-border-color: #000000; -fx-border-radius: 100; -fx-background-radius: 100;" text="Change login" textFill="WHITE">
+      <Button fx:id="changeLoginButton" layoutX="71.0" layoutY="109.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="133.0" style="-fx-background-color: #000000; -fx-border-color: #000000; -fx-border-radius: 100; -fx-background-radius: 100;" text="Change login" textFill="WHITE">
          <font>
             <Font name="Roboto" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="changePassButton" layoutX="212.0" layoutY="91.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="148.0" style="-fx-background-color: #000000; -fx-border-color: #000000; -fx-border-radius: 100; -fx-background-radius: 100;" text="Change password" textFill="WHITE">
+      <Button fx:id="changePassButton" layoutX="211.0" layoutY="109.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="148.0" style="-fx-background-color: #000000; -fx-border-color: #000000; -fx-border-radius: 100; -fx-background-radius: 100;" text="Change password" textFill="WHITE">
          <font>
             <Font name="Roboto" size="15.0" />
          </font>
       </Button>
+      <Label layoutX="29.0" layoutY="64.0" prefHeight="20.0" prefWidth="273.0" text="The number of quotes you entered →">
+         <font>
+            <Font name="Roboto" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="numberLabel" layoutX="305.0" layoutY="62.0" prefHeight="25.0" prefWidth="112.0" text="numberLabel">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

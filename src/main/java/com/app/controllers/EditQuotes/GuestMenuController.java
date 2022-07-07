@@ -1,18 +1,19 @@
 package com.app.controllers.EditQuotes;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.app.database.models.Quote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import static com.app.controllers.Auth.AuthController.openNewWindow;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import static com.app.Configs.openNewWindow;
 
 public class GuestMenuController {
 
@@ -30,6 +31,8 @@ public class GuestMenuController {
 
     @FXML
     private Button exitButton;
+    @FXML
+    private Button retrieveButton;
 
     @FXML
     private TableColumn<Quote, String> lecturer;
@@ -45,9 +48,19 @@ public class GuestMenuController {
         exitButton.setOnAction(actionEvent -> {
             openNewWindow("/com/app/authorization-view.fxml", exitButton, true);
         });
+        retrieveButton.setOnAction(actionEvent -> {
+            Quote current = dataTable.getSelectionModel().getSelectedItem();
+            FXMLLoader loader = openNewWindow("/com/app/retrieve_quote-view.fxml", retrieveButton, false);
+            RetrieveQuoteController retrieveQuoteController = loader.getController();
+            retrieveQuoteController.setQuote(current);
+        });
     }
 
     public void loadTable() {
+        loadTable(quote, lecturer, subject, date, dataTable);
+    }
+
+    static void loadTable(TableColumn<Quote, String> quote, TableColumn<Quote, String> lecturer, TableColumn<Quote, String> subject, TableColumn<Quote, String> date, TableView<Quote> dataTable) {
         quote.setCellValueFactory(new PropertyValueFactory<>("quote"));
         lecturer.setCellValueFactory(new PropertyValueFactory<>("lecturer"));
         subject.setCellValueFactory(new PropertyValueFactory<>("subject"));

@@ -43,17 +43,22 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
         </TableView>
-        <Button fx:id="addButton" layoutX="6.0" layoutY="94.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" style="-fx-background-color: #000000; -fx-border-color: #000000; -fx-border-radius: 100; -fx-background-radius: 100;" text="Add" textFill="WHITE">
+        <Button fx:id="addButton" layoutX="6.0" layoutY="94.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" style="-fx-background-color: #000000; -fx-border-color: #000000; -fx-border-radius: 100; -fx-background-radius: 100;" text="Create" textFill="WHITE">
          <font>
             <Font name="Roboto" size="16.0" />
          </font></Button>
-        <Button fx:id="deleteButton" layoutX="6.0" layoutY="136.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" style="-fx-background-color: #000000; -fx-border-radius: 100; -fx-background-radius: 100;" text="Delete" textFill="WHITE">
+        <Button fx:id="deleteButton" layoutX="6.0" layoutY="220.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" style="-fx-background-color: #000000; -fx-border-radius: 100; -fx-background-radius: 100;" text="Delete" textFill="WHITE">
          <font>
             <Font name="Roboto" size="15.0" />
          </font></Button>
-        <Button fx:id="changeButton" layoutX="6.0" layoutY="178.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" style="-fx-background-color: #000000; -fx-background-radius: 100; -fx-border-radius: 100;" text="Change" textFill="WHITE">
+        <Button fx:id="changeButton" layoutX="6.0" layoutY="177.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" style="-fx-background-color: #000000; -fx-background-radius: 100; -fx-border-radius: 100;" text="Update" textFill="WHITE">
          <font>
             <Font name="Roboto" size="15.0" />
          </font></Button>
+      <Button fx:id="retrieveButton" layoutX="6.0" layoutY="136.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" style="-fx-background-color: #000000; -fx-background-radius: 100; -fx-border-radius: 100;" text="Retrieve" textFill="WHITE">
+         <font>
+            <Font name="Roboto" size="15.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

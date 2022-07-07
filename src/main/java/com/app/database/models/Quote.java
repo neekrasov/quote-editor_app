@@ -14,16 +14,19 @@ public class Quote {
     private String subject;
     private String date;
 
-    public Quote(int id, String quote, String lecturer, String subject, String date) {
+    private int author;
+
+    public Quote(int id, String quote, String lecturer, String subject, String date, int author) {
         this.id = id;
         this.quote = quote;
         this.lecturer = lecturer;
         this.subject = subject;
         this.date = date;
+        this.author = author;
     }
 
-    public static Quote create(String quote, String lecturer, String subject, String date) {
-        String insert = "INSERT INTO lecturer_quotes (quote, lecturer, subject, date) VALUES (?, ?, ?, ?)";
+    public static Quote create(String quote, String lecturer, String subject, String date, int author) {
+        String insert = "INSERT INTO lecturer_quotes (quote, lecturer, subject, date, author) VALUES (?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement prSt = DatabaseHandler.getDbConnection().prepareStatement(insert);
@@ -31,6 +34,7 @@ public class Quote {
             prSt.setString(2, lecturer);
             prSt.setString(3, subject);
             prSt.setString(4, date);
+            prSt.setInt(5, author);
             prSt.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -92,7 +96,8 @@ public class Quote {
             String lecturer = resSet.getString("lecturer");
             String subject = resSet.getString("subject");
             String date = resSet.getString("date");
-            return new Quote(id, quote, lecturer, subject, date);
+            int author = resSet.getInt("author");
+            return new Quote(id, quote, lecturer, subject, date, author);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -171,6 +176,10 @@ public class Quote {
 
     public String getDate() {
         return date;
+    }
+
+    public int getAuthor(){
+        return author;
     }
 
 

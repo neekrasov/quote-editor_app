@@ -8,9 +8,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static com.app.controllers.Auth.AuthController.openNewWindow;
+import static com.app.Configs.openNewWindow;
 
 public class RegistrationController {
 
@@ -41,12 +42,16 @@ public class RegistrationController {
     @FXML
     void initialize() {
         signUpButton.setOnAction(actionEvent -> {
-            signUp();
-            openNewWindow("/com/app/authorization-view.fxml", signUpButton,true);
+            boolean status = signUp();
+            if (!status) {
+                registerErrorAnimation();
+            } else {
+                openNewWindow("/com/app/authorization-view.fxml", signUpButton, true);
+            }
         });
 
         backButton.setOnAction(actionEvent -> {
-            openNewWindow("/com/app/authorization-view.fxml", backButton,true);
+            openNewWindow("/com/app/authorization-view.fxml", backButton, true);
         });
 
 
@@ -55,15 +60,23 @@ public class RegistrationController {
         });
     }
 
-    private void signUp() {
+    private boolean signUp() {
         String login = loginField.getText().trim();
         String password1 = passwordField1.getText().trim();
         String password2 = passwordField2.getText().trim();
 
         if (!login.equals("") && !password1.equals("") && !password2.equals("") && password1.equals(password2)) {
-            User.register(login, password2);
+            User newUser = User.register(login, password2);
+            if (newUser != null) {
+                ArrayList<Integer> defaultFunctions = new ArrayList<>();
+                defaultFunctions.add(1);
+                defaultFunctions.add(5);
+                defaultFunctions.add(6);
+                newUser.setFunctions(defaultFunctions);
+                return true;
+            } else return false;
         } else {
-            registerErrorAnimation();
+            return false;
         }
     }
 

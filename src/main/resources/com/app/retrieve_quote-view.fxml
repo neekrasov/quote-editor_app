@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="272.0" minWidth="300.0" prefHeight="272.0" prefWidth="372.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controllers.EditQuotes.RetrieveQuoteController">
+    <children>
+        <AnchorPane layoutX="-1.0" prefHeight="61.0" prefWidth="373.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <AnchorPane layoutX="-83.0" layoutY="2.0" prefHeight="55.0" prefWidth="608.0" AnchorPane.bottomAnchor="343.0" AnchorPane.leftAnchor="-83.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="2.0" />
+                <Label layoutX="138.0" layoutY="17.0" prefHeight="27.0" prefWidth="98.0" text="QUOTE" textFill="WHITE">
+                    <font>
+                        <Font name="Arial" size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutY="241.0" prefHeight="34.0" prefWidth="373.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="241.0">
+            <children>
+                <Button fx:id="exitButton" layoutX="14.0" layoutY="4.0" mnemonicParsing="false" style="-fx-background-color: #000000; -fx-border-color: #FFFFFF; -fx-border-radius: 100; -fx-background-radius: 100;" text="Exit" textFill="WHITE" />
+            </children></AnchorPane>
+        <TextField fx:id="quoteField" layoutX="14.0" layoutY="70.0" prefHeight="34.0" prefWidth="355.0" promptText="Quote" />
+        <TextField fx:id="lecturerNameField" layoutX="14.0" layoutY="111.0" prefHeight="25.0" prefWidth="208.0" promptText="Lecturer name" />
+        <TextField fx:id="subjectField" layoutX="14.0" layoutY="144.0" prefHeight="25.0" prefWidth="168.0" promptText="Subject" />
+        <DatePicker fx:id="dateField" layoutX="14.0" layoutY="179.0" prefHeight="25.0" prefWidth="144.0" />
+    </children>
+</AnchorPane>
