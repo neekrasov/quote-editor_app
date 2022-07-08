@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class CreateQuoteController {
+
+    int counter;
     TableView<Quote> dataTable;
 
     User user;
@@ -40,6 +42,7 @@ public class CreateQuoteController {
 
     @FXML
     private TextField subjectField;
+    private EditMenuController editMenuController;
 
     @FXML
     void initialize() {
@@ -47,6 +50,7 @@ public class CreateQuoteController {
 
         exitButton.setOnAction(actionEvent -> {
             exitButton.getScene().getWindow().hide();
+
         });
 
         addButton.setOnAction((actionEvent -> {
@@ -57,15 +61,18 @@ public class CreateQuoteController {
                     user.getId());
             exitButton.getScene().getWindow().hide();
             dataTable.getItems().add(newQuote);
+            editMenuController.addCounter(1);
             dataTable.refresh();
         }));
     }
     public void setParentTable(TableView<Quote> dataTable) {
         this.dataTable = dataTable;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
 
+    public void setParent(EditMenuController editMenuController) {
+        this.editMenuController = editMenuController;
+    }
 }

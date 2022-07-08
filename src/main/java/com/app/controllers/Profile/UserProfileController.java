@@ -1,6 +1,5 @@
 package com.app.controllers.Profile;
 
-import com.app.controllers.Auth.AuthController;
 import com.app.controllers.EditQuotes.EditMenuController;
 import com.app.database.models.User;
 import javafx.fxml.FXML;
@@ -45,6 +44,7 @@ public class UserProfileController {
     private Button adminSettingsButton;
     @FXML
     private Button myGroupButton;
+    private int counter;
 
     @FXML
     void initialize() {
@@ -64,6 +64,7 @@ public class UserProfileController {
             Stage stage = new Stage();
 
             EditMenuController editMenuController = loader.getController();
+            editMenuController.setCounter(counter);
             stage.setScene(new Scene(root));
             try {
                 editMenuController.setUser(user);
@@ -114,7 +115,7 @@ public class UserProfileController {
         this.user = user;
 
         labelHello.setText("Hello " + user.getLogin() + "!");
-        numberLabel.setText(String.valueOf(user.quotesCount()));
+        numberLabel.setText(String.valueOf(counter));
 
         if (!user.isStaff()) {
             adminSettingsButton.setVisible(false);
@@ -125,4 +126,7 @@ public class UserProfileController {
     }
 
 
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
 }

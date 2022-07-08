@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import static com.app.Configs.openNewWindow;
 
@@ -24,6 +23,7 @@ public class EditMenuController {
     User user;
 
     ArrayList<Integer> userFunctions;
+    private int counter;
     @FXML
     private ResourceBundle resources;
 
@@ -72,16 +72,15 @@ public class EditMenuController {
                 super.updateItem(item, empty);
                 if (item == null) {
                 } else if (user == null) {
-                } else if (!(item.getAuthor() == user.getId())) {
-                    setStyle("-fx-background-color: #C0C0C0;");
-                }
+                } else if (!(item.getAuthor() == user.getId())) setStyle("-fx-background-color: #C0C0C0;");
             }
         });
 
         profileButton.setOnAction(actionEvent -> {
-            FXMLLoader loader = openNewWindow("/com/app/user_profile-view.fxml", exitButton, true);
-            UserProfileController userProfileController = loader.getController();
+            UserProfileController userProfileController =
+                    openNewWindow("/com/app/user_profile-view.fxml", exitButton, true).getController();
             try {
+                userProfileController.setCounter(counter);
                 userProfileController.setUser(user);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -99,10 +98,11 @@ public class EditMenuController {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            FXMLLoader loader = openNewWindow("/com/app/add_quote-view.fxml", addButton, false);
-            CreateQuoteController createQuoteController = loader.getController();
+            CreateQuoteController createQuoteController =
+                    openNewWindow("/com/app/add_quote-view.fxml", addButton, false).getController();
             createQuoteController.setParentTable(dataTable);
             createQuoteController.setUser(user);
+            createQuoteController.setParent(this);
         });
 
         changeButton.setOnAction(actionEvent -> {
@@ -112,8 +112,8 @@ public class EditMenuController {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            FXMLLoader loader = openNewWindow("/com/app/change_quote-view.fxml", changeButton, false);
-            UpdateQuoteController updateQuoteController = loader.getController();
+            UpdateQuoteController updateQuoteController =
+                    openNewWindow("/com/app/change_quote-view.fxml", changeButton, false).getController();
             updateQuoteController.setParentTable(dataTable);
             updateQuoteController.setQuote(current);
         });
@@ -125,6 +125,7 @@ public class EditMenuController {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+            if (current.getAuthor() == user.getId() && counter!=0) counter= counter-1;
             dataTable.getItems().removeAll(current);
             current.delete();
             dataTable.refresh();
@@ -156,21 +157,18 @@ public class EditMenuController {
     }
 
     public boolean accessCheck(Quote quote, Button button, int code) throws SQLException {
-        if (quote == null && code != 1) return accessFailed(button);
+        // Приоритет отдаётся более ограниченной функции.
+        // Верифицированный пользователь по-умолчанию может изменять свои и чужие записи.
 
-        if (user.isVerifier()){
-            return verifierAccessCheck(quote, button, code);
-        }
+        if (quote == null && code != 1) return accessFailed(button);
+        if (user.isStaff()) return false;
+
+        if (user.isVerifier()) return verifierAccessCheck(quote, button, code);
 
         if (userFunctions == null) return accessFailed(button);
 
-        if (user.isStaff()) return false;
-
-
         if (code == 1 && (!userFunctions.contains(code))) return accessFailed(button);
 
-        // Приоритет отдаётся более ограниченной функции.
-        // Верифицированный пользователь по-умолчанию может изменять свои и чужие записи.
 
         if (code == 6) {
             if (userFunctions.contains(6) && quote.getAuthor() != user.getId()) return accessFailed(button);
@@ -194,14 +192,21 @@ public class EditMenuController {
 
     private boolean verifierAccessCheck(Quote quote, Button button, int code) {
         List<Integer> list = user.getGroup().stream().map(User::getId).toList();
-        if (code == 1){
+        if (code == 1) {
             return false;
-        }else if (quote.getAuthor() == user.getId()) {
+        } else if (quote.getAuthor() == user.getId()) {
             return false;
         } else if (list.contains(quote.getAuthor())) {
             return false;
         }
         return accessFailed(button);
+    }
+
+    public void setCounter(int counter){
+        this.counter = counter;
+    }
+    public void addCounter(int degree){
+        this.counter = counter+degree;
     }
 }
 

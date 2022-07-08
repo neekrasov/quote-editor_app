@@ -80,6 +80,7 @@ public class AuthController {
 
                 EditMenuController editMenuController = loader.getController();
                 editMenuController.setUser(user);
+                editMenuController.setCounter(user.quotesCount());
 
                 stage.setScene(new Scene(root));
                 stage.show();
